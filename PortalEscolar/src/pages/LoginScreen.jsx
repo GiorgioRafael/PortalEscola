@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Config from "../axiosConfig/config"
 
 const LoginScreen = ({ onLoginSuccess }) => {
   const [user, setUser] = useState('');
@@ -6,8 +7,8 @@ const LoginScreen = ({ onLoginSuccess }) => {
   const [state, setState] = useState('Login');
 
   const handleRegister = () => {
-    // lógica de criacao de conta
-    }
+    Config(user,password)
+  }
   const handleEntrar = () => {
     // lógica de verificação de login
     
@@ -49,7 +50,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
       ) : (
         <>
           <h1>Criação de conta</h1>
-          <p>Usuario</p>
+          <p>E-Mail</p>
           <input
             className="LoginInput"
             type="text"
