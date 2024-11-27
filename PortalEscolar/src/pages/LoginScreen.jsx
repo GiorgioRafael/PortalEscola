@@ -1,19 +1,36 @@
 import React, { useState } from 'react';
-import Config from "../axiosConfig/config"
+import Register from "../axiosConfig/RegisterConfig";
+import Login from '../axiosConfig/LoginConfig';
 
 const LoginScreen = ({ onLoginSuccess }) => {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [state, setState] = useState('Login');
+  const [mensagem, setMensagem] = useState("");
 
-  const handleRegister = () => {
-    Config(user,password)
-  }
-  const handleEntrar = () => {
-    // lógica de verificação de login
+  const handleRegister = async () => {
+    const valid = await Register(user,password)
+
+    if(valid == true){
+      handleEntrar()
+    }
+    else {
+      setMensagem("Usuario Invalido");
+    }
     
-    // Supondo que a verificação de login foi bem-sucedida
-    onLoginSuccess();
+    
+  }
+  const handleEntrar = async () => {
+    const valid = await Login(user,password)
+
+    if(valid == true){
+      onLoginSuccess();
+    }
+    else{
+      setMensagem("Usuario Invalido");
+      
+    }
+      
   };
 
   return (
@@ -21,7 +38,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
       {state === 'Login' ? (
         <>
           <h1>Login de usuário</h1>
-          <p>Usuario</p>
+          <p>e_mail</p>
           <input
             className="LoginInput"
             type="text"
@@ -75,6 +92,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
           <button onClick={() => setState('Login')} className="button">
             Fazer Login
           </button>
+          
         </>
       )}
     </div>
